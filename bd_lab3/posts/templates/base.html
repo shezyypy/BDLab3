@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Аналитическая система</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            color: #2563eb;
+        }
+
+        .section-title {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 8px 10px;
+            margin: 4px 0;
+            text-decoration: none;
+            color: #475569;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .sidebar .section-active {
+            background: #eff6ff;
+            border-radius: 8px;
+            padding: 6px;
+        }
+
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2563eb;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .main {
+            margin-left: 260px;
+            padding: 30px;
+            width: 100%;
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* ключ */
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+
+            height: fit-content;
+            width: 100%;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            background: #eff6ff;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+
+        /* FORM */
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #cbd5f5;
+        }
+
+        button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        /* KPI */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        /* плавность для всех ссылок */
+        .sidebar a {
+            display: block;
+            padding: 8px 10px;
+            margin: 4px 0;
+            text-decoration: none;
+            color: #475569;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        /* hover эффект */
+        .sidebar a:hover {
+            background: #eff6ff;
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        /* активная вкладка */
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* анимационная синяя полоска */
+        .sidebar a.active::before {
+            content: "";
+            position: absolute;
+            left: -6px;
+            top: 20%;
+            height: 60%;
+            width: 4px;
+            background: #2563eb;
+            border-radius: 4px;
+            animation: slideIn 0.3s ease;
+        }
+
+        /* секция (голубый блок) */
+        .section-active {
+            background: #eff6ff;
+            border-radius: 8px;
+            padding: 6px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* анимации */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="/" class="logo {% if request.path == '/' %}active{% endif %}">БД №3</a>
+
+    <div class="section-title">Университет</div>
+<div class="{% if '/courses' in request.path or '/students' in request.path or '/enrollments' in request.path %}section-active{% endif %}">
+    <a href="/courses/" class="{% if '/courses' in request.path %}active{% endif %}">Курсы</a>
+    <a href="/students/" class="{% if '/students' in request.path %}active{% endif %}">Студенты</a>
+    <a href="/enrollments/" class="{% if '/enrollments' in request.path %}active{% endif %}">Журнал</a>
+</div>
+
+    <div class="section-title">OLAP Университет</div>
+<div class="{% if '/olap/' in request.path and not '/airport/' in request.path %}section-active{% endif %}">
+    <a href="/olap/course/" class="{% if request.path == '/olap/course/' %}active{% endif %}">По курсам</a>
+    <a href="/olap/student/" class="{% if request.path == '/olap/student/' %}active{% endif %}">По студентам</a>
+    <a href="/olap/year/" class="{% if request.path == '/olap/year/' %}active{% endif %}">По годам</a>
+    <a href="/olap/cube/" class="{% if request.path == '/olap/cube/' %}active{% endif %}">Куб</a>
+    <a href="/olap/slice-course/" class="{% if request.path == '/olap/slice-course/' %}active{% endif %}">Срез по курсу</a>
+    <a href="/olap/slice-student/" class="{% if request.path == '/olap/slice-student/' %}active{% endif %}">Срез по студенту</a>
+    <a href="/olap/top-students/" class="{% if request.path == '/olap/top-students/' %}active{% endif %}">Топ студентов</a>
+</div>
+
+    <div class="section-title">Аэропорт</div>
+<div class="{% if '/airport/' in request.path and not '/airport/olap/' in request.path %}section-active{% endif %}">
+    <a href="/airport/flights/" class="{% if request.path == '/airport/flights/' %}active{% endif %}">Рейсы</a>
+    <a href="/airport/passengers/" class="{% if request.path == '/airport/passengers/' %}active{% endif %}">Пассажиры</a>
+    <a href="/airport/manifest/" class="{% if request.path == '/airport/manifest/' %}active{% endif %}">Журнал</a>
+</div>
+
+    <div class="section-title">OLAP Аэропорт</div>
+<div class="{% if '/airport/olap/' in request.path %}section-active{% endif %}">
+    <a href="/airport/olap/flights/" class="{% if request.path == '/airport/olap/flights/' %}active{% endif %}">По рейсам</a>
+    <a href="/airport/olap/passengers/" class="{% if request.path == '/airport/olap/passengers/' %}active{% endif %}">По пассажирам</a>
+    <a href="/airport/olap/cube/" class="{% if request.path == '/airport/olap/cube/' %}active{% endif %}">Куб</a>
+    <a href="/airport/olap/slice-flight/" class="{% if request.path == '/airport/olap/slice-flight/' %}active{% endif %}">Срез по рейсу</a>
+    <a href="/airport/olap/slice-passenger/" class="{% if request.path == '/airport/olap/slice-passenger/' %}active{% endif %}">Срез по пассажиру</a>
+</div>
+</div>
+
+<div class="main">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+<h1>Пассажиры</h1>
+
+<table>
+<tr>
+    <th>Фамилия</th>
+    <th>Рейс</th>
+    <th>Место</th>
+</tr>
+
+{% for p in passengers %}
+<tr>
+    <td>{{ p.last_name }}</td>
+    <td>{{ p.flight.flight_number }}</td>
+    <td>{{ p.seat }}</td>
+</tr>
+{% endfor %}
+
+</table>
+</div>
+
+{% endblock %}

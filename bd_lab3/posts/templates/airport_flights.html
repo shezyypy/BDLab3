@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+    <h1>Рейсы</h1>
+
+    <table>
+        <tr>
+            <th>Номер рейса</th>
+            <th>Город</th>
+            <th>Самолёт</th>
+        </tr>
+
+        {% for f in flights %}
+        <tr>
+            <td>{{ f.flight_number }}</td>
+            <td>{{ f.city }}</td>
+            <td>{{ f.aircraft_number }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

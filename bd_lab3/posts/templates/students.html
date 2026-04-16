@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<div class="card">
+    <h1>Студенты</h1>
+
+    <table>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Email</th>
+    </tr>
+
+    {% for s in students %}
+    <tr>
+        <td>{{ s.first_name }}</td>
+        <td>{{ s.last_name }}</td>
+        <td>{{ s.email }}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}

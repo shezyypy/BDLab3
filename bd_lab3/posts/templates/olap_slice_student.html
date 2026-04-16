@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <html>
+    <body>
+
+    <h1>Срез по студенту</h1>
+
+    <form method="get">
+        <select name="student_id">
+            {% for s in students %}
+            <option value="{{ s.id }}">
+                {{ s.first_name }} {{ s.last_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit">Показать</button>
+    </form>
+
+    <table>
+    <tr>
+        <th>Курс</th>
+        <th>Оценка</th>
+        <th>Дата</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row.course__course_name }}</td>
+        <td>{{ row.grade }}</td>
+        <td>{{ row.enrollment_date }}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+
+    </body>
+    </html>
+    {% endblock %}
+</div>

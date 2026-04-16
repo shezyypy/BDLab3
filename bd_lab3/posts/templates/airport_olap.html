@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+
+<h1>{{ title }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            {% for key in data.0.keys %}
+                <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in data %}
+        <tr>
+            {% for key, value in row.items %}
+                <td>
+                    {% if key == "Год" %}
+                        {{ value|floatformat:0 }}
+                    {% elif value|stringformat:"f" %}
+                        {{ value|floatformat:0 }}
+                    {% else %}
+                        {{ value }}
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if labels and values %}
+    <div style="margin-top:20px;">
+        <canvas id="chart"></canvas>
+    </div>
+{% endif %}
+
+</div>
+
+{% if labels and values %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+new Chart(document.getElementById('chart'), {
+    type: 'bar',
+    data: {
+        labels: {{ labels|safe }},
+        datasets: [{
+            label: 'Количество',
+            data: {{ values|safe }},
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+</script>
+{% endif %}
+
+{% endblock %}

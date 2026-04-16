@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Общая аналитика</h1>
+
+<!-- УНИВЕРСИТЕТ -->
+<div class="card">
+    <h2>Университет</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <h3>{{ stats.students }}</h3>
+            <p>Студенты</p>
+        </div>
+
+        <div class="kpi-card">
+            <h3>{{ stats.courses }}</h3>
+            <p>Курсы</p>
+        </div>
+
+        <div class="kpi-card">
+            <h3>{{ stats.avg_grade|floatformat:2 }}</h3>
+            <p>Средний балл</p>
+        </div>
+    </div>
+</div>
+
+<!-- АЭРОПОРТ -->
+<div class="card">
+    <h2>Аэропорт</h2>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <h3>{{ stats.flights }}</h3>
+            <p>Рейсы</p>
+        </div>
+
+        <div class="kpi-card">
+            <h3>{{ stats.passengers }}</h3>
+            <p>Пассажиры</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

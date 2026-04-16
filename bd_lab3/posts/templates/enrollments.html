@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <html>
+    <body>
+        <h1>Электронный журнал</h1>
+
+    <table>
+    <tr>
+        <th>Студент</th>
+        <th>Курс</th>
+        <th>Оценка</th>
+    </tr>
+
+    {% for e in enrollments %}
+    <tr>
+        <td>{{ e.student }}</td>
+        <td>{{ e.course }}</td>
+        <td>{{ e.grade }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    </body>
+    </html>
+    {% endblock %}
+</div>
